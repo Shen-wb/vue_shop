@@ -24,6 +24,7 @@
 
 <script>
 export default {
+  name: 'Login',
   data() {
     return {
       loginForm: {
@@ -53,7 +54,7 @@ export default {
         if(data.meta.status !== 200) this.$message.error('登录失败！')
         else this.$message.success('登录成功！')
         window.sessionStorage.setItem('token',data.data.token)
-        this.$router.push('/home')
+        this.$router.replace('/home')
       })
     }
   }
