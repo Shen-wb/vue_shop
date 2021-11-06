@@ -19,3 +19,12 @@ html, body, #app {
   margin-bottom: 15px;
   font-size: 12px;
 }
+
+.zk-table {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.el-cascader-menu {
+  height: 200px;
+}
