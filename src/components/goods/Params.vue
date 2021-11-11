@@ -118,7 +118,8 @@ export default {
       cateProps: {
         value: 'cat_id',
         label: 'cat_name',
-        children: 'children'
+        children: 'children',
+        expandTrigger: 'hover'
       },
       selectedCateKeys: [],
       activeName: 'many',

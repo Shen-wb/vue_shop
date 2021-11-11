@@ -57,7 +57,7 @@
         width="50%">
         <el-form :model="addressForm" :rules="addressFormRules" ref="addressFormRef" label-width="100px">
           <el-form-item label="省市区/县" prop="address1">
-            <el-cascader expand-trigger="hover" v-model="addressForm.address1" :options="cityData" @change="handleChange"></el-cascader>
+            <el-cascader expand-trigger="hover" v-model="addressForm.address1" :options="cityData" @change="handleChange" :props="{ expandTrigger: 'hover' }"></el-cascader>
           </el-form-item>
           <el-form-item label="详细地址" prop="address2">
             <el-input v-model="addressForm.address2"></el-input>

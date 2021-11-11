@@ -50,7 +50,7 @@
           <el-input v-model="addCateForm.cat_name"></el-input>
         </el-form-item>
         <el-form-item label="父级分类">
-           <el-cascader expand-trigger="hover" v-model="selectedKeys" :options="parentCateList" @change="handleChange" :props="cascaderProps" clearable></el-cascader>
+           <el-cascader v-model="selectedKeys" :options="parentCateList" @change="handleChange" :props="cascaderProps" clearable></el-cascader>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -130,7 +130,8 @@ export default {
         value: 'cat_id',
         label: 'cat_name',
         children: 'children',
-        checkStrictly: true
+        checkStrictly: true,
+        expandTrigger: 'hover'
       },
       selectedKeys: [],
     }
