@@ -26,7 +26,7 @@
         </el-table-column>
         <el-table-column label="操作" width="130px">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+            <el-button type="primary" icon="el-icon-s-fold" size="mini" @click="showEditDialog(scope.row.goods_id)"></el-button>
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteById(scope.row)"></el-button>
           </template>
         </el-table-column>
@@ -42,6 +42,36 @@
         :total="total" background>
       </el-pagination>
     </el-card>
+    <!-- 编辑商品信息对话框 -->
+    <el-dialog
+      title="编辑商品"
+      :visible.sync="editDialogVisible"
+      :close-on-click-modal="false"
+      width="50%">
+      <el-form :model="goodsInfo" ref="editFormRef" label-width="100px">
+        <el-form-item label="商品名称：">
+          <span>{{goodsInfo.goods_name}}</span>
+        </el-form-item>
+        <el-form-item label="商品价格：">
+          <span>{{goodsInfo.goods_price}}元</span>
+        </el-form-item>
+        <el-form-item label="商品重量：">
+          <span>{{goodsInfo.goods_weight}}克</span>
+        </el-form-item>
+        <el-form-item label="商品数量：">
+          <span>{{goodsInfo.goods_number}}</span>
+        </el-form-item>
+        <el-form-item label="商品参数：">
+          <el-tag v-for="(attr, index) in goodsInfo.attrs" :key="index">{{attr.attr_vals}}</el-tag>
+        </el-form-item>
+        <label style="margin-left: 18px">商品介绍：</label>
+        <div v-html="goodsInfo.goods_introduce"></div>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -58,6 +88,8 @@ export default {
       },
       goodsList: [],
       total: 0,
+      editDialogVisible: false,
+      goodsInfo: {},
     }
   },
   created() {
@@ -97,6 +129,13 @@ export default {
     },
     toAddGoodsPage() {
       this.$router.push('/goods/add')
+    },
+    async showEditDialog(id) {
+      this.editDialogVisible = true
+      const {data} = await this.$http.get(`goods/${id}`)
+      if(data.meta.status !== 200) return this.$message.error('获取商品列表失败!')
+      this.goodsInfo = data.data
+      console.log(this.goodsInfo.attrs);
     }
   },
   filters: {
@@ -107,6 +146,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.el-tag {
+  margin-right: 15px;
+}
 </style>
